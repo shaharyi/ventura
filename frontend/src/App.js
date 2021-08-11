@@ -7,8 +7,8 @@ function App() {
   const [room, setRoom] = useState(null);
 
   useEffect(() => {
-    fetch('/api/v1.0/room/1').then(res => res.json()).then(data => {
-      setRoom(data);
+    fetch('/api/v1.0/rooms/1').then(res => res.json()).then(data => {
+      setRoom(JSON.stringify(data));
     });
   }, []);
 

@@ -102,7 +102,8 @@ class ItemType(db.Model):
     __tablename__ = 'item_types'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128))
-    glyph_id = db.Column(db.Integer, db.ForeignKey('images.id'))
+    img_id = db.Column(db.Integer, db.ForeignKey('images.id'))
+    img = db.relationship('Image')
     set_id = db.Column(db.Integer, db.ForeignKey('sets.id'))
     set = db.relationship('Set', back_populates='item_types')
 
@@ -116,6 +117,7 @@ class Item(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='items')
     item_type_id = db.Column(db.Integer, db.ForeignKey('item_types.id'))
+    item_type = db.relationship('ItemType')
     room_id = db.Column(db.Integer, db.ForeignKey('rooms.id'))
     room = db.relationship('Room', back_populates='items')
     # cell_id = db.relationship('Cell', db.ForeignKey('cells.id'))
@@ -126,6 +128,7 @@ class Room(db.Model):
     __tablename__ = 'rooms'
     id = db.Column(db.Integer, primary_key=True)
     img_id = db.Column(db.Integer, db.ForeignKey('images.id'))
+    img = db.relationship('Image')
     # cells = db.relationship('Cell', back_populates='room', lazy=True)
     items = db.relationship('Item', back_populates='room', lazy=True)
     nroom_id = db.Column(db.Integer, db.ForeignKey('rooms.id'))
